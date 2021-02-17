@@ -11,7 +11,8 @@ class Conf(arguments: Seq[String]) extends ScallopConf(arguments) {
   val input_file = opt[String](required = true)
   val output_file = opt[String](required = true)
   val type_of_input = choice(Seq("sro", "as"), required = true)
-  val compressed = opt[Boolean]()
+  val separator = opt[Char](default = Option('\t'))
+  // val compressed = opt[Boolean]()
   verify()
 }
 
@@ -21,22 +22,26 @@ object ORParser {
     val conf = new Conf(args)
     val input_file = conf.input_file.apply()
     val output_file = conf.output_file.apply()
-    val gzipped = conf.compressed
+    // val gzipped = conf.compressed
     val sep = "\t"
     // val input_file_gz = new GZIPInputStream(new BufferedInputStream(new FileInputStream("data.bin")))
     // input_file_gz.
-    //val xml = XML.load(input_file_gz)
+    // val xml = XML.load(input_file_gz)
     val xml = XML.loadFile(input_file)
     val file = new File(output_file)
     val fw = new BufferedWriter(new FileWriter(file))
 
-    fw.write(s"${java.time.LocalDateTime.now}\n")
+    val start = java.time.LocalDateTime.now
     val subjects = xml \ "Subjekt"
-    val str_out = subjects.map(x => processSubjectSRO(x, sep))
+    val str_out: Seq[String] = conf.type_of_input.apply() match {
+      case "sro" => subjects.map(x => processSubjectSRO(x, sep))
+      case "as" => Seq("")
+    }
     for (line <- str_out){
       fw.write(line)
     }
-    fw.write(s"${java.time.LocalDateTime.now}\n")
+    val elapsed = java.time.temporal.ChronoUnit.SECONDS.between(java.time.LocalDateTime.now, start)
+    println(s"Elapsed time: ${elapsed}")
     fw.flush()
     fw.close()
   }
