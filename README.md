@@ -1,0 +1,2 @@
+# obchodniRejstrikParser
+Parsovani OR 
