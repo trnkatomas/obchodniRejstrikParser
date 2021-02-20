@@ -31,3 +31,6 @@ the `-o` determines the output file.
 # Nice to haves
 - [ ] parse the online data from [http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_or.cgi?ico=] (beware of rate limiting and other fun stuff)
 - [ ] more customizable queries
+
+# NB
+The R code is just a POC, currently it is outdated and would produce different data (wrong one) than the Scala version!
