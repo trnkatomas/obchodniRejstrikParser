@@ -6,7 +6,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "ObchodniRejstrik",
-    version := "0.0.1",
+    version := "0.0.2",
     scalaVersion := "2.13.4",
     compileOrder := CompileOrder.JavaThenScala,
     javacOptions in (Compile, compile) ++= Seq("-source", "1.8", "-target", "1.8", "-g:lines"),
