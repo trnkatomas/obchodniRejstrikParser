@@ -13,8 +13,10 @@ as follows:
 This will show the available options for the input and the output. 
 
 # Get the data
+```bash
 export base_url="https://dataor.justice.cz/api/file"
-parallel --bar "wget -q \$base_url/{1}-full-{2}-{3}.xml.gz" ::: as sro ::: praha ceske_budejovice plzen usti_nad_labem hradec_kralove brno ostrava ::: $(seq 2005 2021) 
+parallel --bar "wget -q \$base_url/{1}-full-{2}-{3}.xml.gz" ::: as sro ::: praha ceske_budejovice plzen usti_nad_labem hradec_kralove brno ostrava ::: $(seq 2005 2021)
+``` 
 
 # Prepare and process the data
 The small files should be just fine, be small I mean xml files containing <= 30k `<Subjekt>` elements, the bigger ones needs some processing.
